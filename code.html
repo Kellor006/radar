@@ -3,7 +3,7 @@
 
 
 <head>
-    <title>App Name: A Coding Project by Richard Bacsa</title>
+    <title>Radar: A Coding Project by Richard Bacsa</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,7 +26,7 @@
         <!--------NAV SECTION---------->
 <nav class="pixelTextNav navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="img/RBMenuLogo.png" class="d-inline-block alight-text-top mx-3" width="30" height="24">APP NAME</a>
+        <a class="navbar-brand" href="#"><img src="img/RBMenuLogo.png" class="d-inline-block alight-text-top mx-3" width="30" height="24">RADAR</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -43,7 +43,7 @@
                     <a class="nav-link active" aria-current="page" href="/code.html">The Code</a>
                 </li>               
                 <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="#">Git Repo</a>
+                    <a class="nav-link" target="_blank" href="https://github.com/Kellor006/radar">Git Repo</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" target="_blank" href="https://rbacsaportfolio.netlify.app/">About</a>
@@ -55,22 +55,82 @@
    <!--------MAIN SECTION---------->
    <main class="flex-shrink-0">
     <div class="container py-5 px-5 mt-5">
-        <h1 class="border-1 border-bottom border-dark pixelText">The Code for APP NAME</h1>
+        <h1 class="border-1 border-bottom border-dark pixelText">The Code for Radar</h1>
         <div class="row row-cols-1 row-cols-lg-2">
             <div class="col-lg-8">
                     <pre class="line-numbers"><code class="language-javascript">
-                        //Call Hello World
-                        function HelloWorld()
-                        {
-                        alert("Hello World");
-                        }
+                        function getValue() 
+{
+    // make sure block is invisible
+    document.getElementById("alertBlock").classList.add("invisible");
+    // get user string for the page
+    let userString = document.getElementById("userString").value;
+
+    //check for palindrome
+    let returnObj = checkForPalindrome(userString);
+
+    //display 
+    displayString(returnObj);
+}
+
+// palindrome logic
+function checkForPalindrome(userString)
+{
+    userString = userString.toLowerCase();
+
+    //remove spaces and special characters
+    //anything between a-z lower case and 0-9
+    let regex = /[^a-z0-9]/gi;
+    //it will only return a-z 0-9 and anything thats not in this match remove.
+    userString = userString.replace(regex,"");
+
+    let revString = [];
+    let returnObj = {};
+
+    //due to array starting at [0] we -1 to get to the correct character number in the array 
+    // if userString = h[0]i[1] but chararacter numbers would be [1][2] to have it correct in array -1 == [1][0]
+    for (let i = userString.length - 1; i >= 0; i--) 
+    {
+        revString += userString[i];
+    }
+
+    if (revString == userString) 
+    {
+        returnObj.msg = "Well Done! You got yourself a palindrome!"
+    } 
+    else
+    {
+        returnObj.msg = "Unlucky, not a palindrome"
+    }
+
+    returnObj.reversed = revString;
+
+    return returnObj;
+}
+
+
+function displayString(returnObj) 
+{
+    //write to the page
+    document.getElementById("alertHeader").innerHTML = returnObj.msg;
+    //turn alert box on (from invisible)
+    document.getElementById("msg").innerHTML = `Your phrase reversed is: ${returnObj.reversed}`;
+    document.getElementById("alertBlock").classList.remove("invisible");
+}
                     </code>
                     </pre>
             </div>
             <div class="col-lg-4">
-                <p>The Code is structured is one function.</p>
-                <h5>Hello World</h5>
-                <p>Hello World is a fucntion that displays an alert with the text "Hello World"</p>
+                <h5>RADAR</h5>
+                <p>Radar allows us to check if the string we've input is a palindrome or not.</p>
+                <p><b>function getValue()</b> calls upon an HTML element "alertblock" which is set to invisible at the start. Next is the logic which is wrapped into returnObj, and lastly the display funcction. 
+                </p>
+                <p><b>function checkForPalindrome</b> we start by taking the userString (input from the site) and sue a regular expressing (regex) it is used to match character combinations in strings. 
+                in this case we are using it to remove upper case and special characters that the user may have input into our text field. Then run a reveresed for loop <b>for (let i = userString.length - 1; i >= 0; i--)</b>. 
+                We then compare revString and userString to make sure they are equal, if <b>true</b> returnOBJ that contains the "true" text is sent to display. 
+                 </p>
+                 <p><b>function displayString(returnObj)</b> The invisible HTML element is shown, either the true or false returnOBJ.msg is delivered, and the word that was input is also shown in revered.
+                </p>
             </div>
         </div>
     </div>
